@@ -19,7 +19,7 @@ public abstract class User {
     private Calendar dateOfBirth;
     @Transient
     private String getDateOfBirth;
-    @Column
+    @Column(unique = true)
     private String email;
     @Column
     private String password;

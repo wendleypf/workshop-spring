@@ -32,6 +32,10 @@ public class StudentService implements Crud<Student>{
         return studentRepository.findOne(id);
     }
 
+    public Student getByEmail(String email) {
+        return studentRepository.getByEmail(email);
+    }
+
     @Override
     public Student update(Student student) {
         return studentRepository.exists(student.getId()) ? studentRepository.save(student) : null;

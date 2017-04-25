@@ -32,6 +32,10 @@ public class CoachService implements Crud<Coach> {
         return coachRepository.findOne(id);
     }
 
+    public Coach getByEmail(String email){
+        return coachRepository.getByEmail(email);
+    }
+
     @Override
     public Coach update(Coach coach) {
         return coachRepository.exists(coach.getId()) ? coachRepository.save(coach) : null;

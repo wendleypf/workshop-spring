@@ -1,13 +1,10 @@
 package br.edu.ufcg.embedded;
 
-import br.edu.ufcg.embedded.model.Coach;
 import br.edu.ufcg.embedded.model.DTO.RegisterCoach;
 import br.edu.ufcg.embedded.service.CoachService;
 import com.google.gson.Gson;
 import com.jayway.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
