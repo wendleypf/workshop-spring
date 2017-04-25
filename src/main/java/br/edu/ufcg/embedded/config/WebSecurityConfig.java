@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JWTAuthenticationFailureHandler authenticationFailureHandler = new JWTAuthenticationFailureHandler();
 
         http.formLogin()
-                .loginProcessingUrl("/api/auth")
+                .loginProcessingUrl("/login")
                     .successHandler(athenticationSuccessHandler).failureHandler(authenticationFailureHandler)
                 .and()
                     .exceptionHandling()
@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .anonymous()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/api/auth").permitAll()
+                    .antMatchers("/login").permitAll()
                 .and()
                     .addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class);
 
