@@ -4,9 +4,11 @@ import br.edu.ufcg.embedded.model.Student;
 import br.edu.ufcg.embedded.repository.StudentRepository;
 import br.edu.ufcg.embedded.util.Crud;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class StudentService implements Crud<Student>{
     private StudentRepository studentRepository;
 

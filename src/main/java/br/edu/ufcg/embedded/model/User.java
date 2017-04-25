@@ -27,6 +27,7 @@ public abstract class User {
     private String phone;
     @Column
     private String cpf;
+    @Column
     private String address;
     @Column
     @Enumerated(EnumType.STRING)
