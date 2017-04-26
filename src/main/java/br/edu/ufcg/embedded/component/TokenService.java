@@ -9,13 +9,14 @@ import br.edu.ufcg.embedded.util.AuthException;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.Charset;
 import java.security.Key;
 import java.util.Date;
-
+@Component
 public class TokenService {
     private CoachService coachService;
     private StudentService studentService;
@@ -105,7 +106,7 @@ public class TokenService {
         throw new AuthException("User not found.");
     }
 
-    public User getUsuario(final String token) {
+    public User getUser(final String token) {
         try {
             return validateToken(token);
         } catch (Exception e) {

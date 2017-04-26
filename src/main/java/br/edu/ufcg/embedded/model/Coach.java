@@ -34,4 +34,10 @@ public class Coach extends User {
             studentList.add(student);
         }
     }
+
+    public void removeStudent(Student student){
+        if (student != null) {
+            studentList.remove(student);
+        }
+    }
 }

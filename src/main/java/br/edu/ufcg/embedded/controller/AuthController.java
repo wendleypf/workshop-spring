@@ -7,6 +7,7 @@ import br.edu.ufcg.embedded.model.Student;
 import br.edu.ufcg.embedded.model.User;
 import br.edu.ufcg.embedded.service.CoachService;
 import br.edu.ufcg.embedded.service.StudentService;
+import io.swagger.annotations.ApiOperation;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class AuthController {
         if (user == null || !user.getPassword().equals(authDTO.getPassword())){
             body.put("token", JSONObject.NULL);
             body.put("message", "Email ou senha não conferem.");
-            body.put("usuario", JSONObject.NULL);
+            body.put("user", JSONObject.NULL);
 
             return new ResponseEntity<>(body.toString(), HttpStatus.FORBIDDEN);
         }
@@ -47,12 +48,12 @@ public class AuthController {
         body.put("token", tokenService.generateToken(user));
         body.put("message", "Usuario Autorizado.");
 
-        JSONObject jsonUsuario = new JSONObject();
-        jsonUsuario.put("id", user.getId());
-        jsonUsuario.put("name", user.getUserType());
-        jsonUsuario.put("email", user.getEmail());
+        JSONObject jsonUser = new JSONObject();
+        jsonUser.put("id", user.getId());
+        jsonUser.put("role", user.getUserType());
+        jsonUser.put("email", user.getEmail());
 
-        body.put("user", jsonUsuario);
+        body.put("user", jsonUser);
         return new ResponseEntity<>(body.toString(), HttpStatus.ACCEPTED);
     }
 

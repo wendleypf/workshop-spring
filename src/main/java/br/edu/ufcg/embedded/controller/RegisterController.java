@@ -33,6 +33,6 @@ public class RegisterController {
                                 registerCoach.getAddress());
 
         coachService.create(coach);
-        return new ResponseEntity<>("Registro realizado com sucesso.", HttpStatus.OK);
+        return new ResponseEntity<>("Registro realizado com sucesso.", HttpStatus.CREATED);
     }
 }

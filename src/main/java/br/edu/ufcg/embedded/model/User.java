@@ -1,6 +1,7 @@
 package br.edu.ufcg.embedded.model;
 
 import br.edu.ufcg.embedded.model.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -16,12 +17,14 @@ public abstract class User {
     private String name;
     @Column
     @Temporal(TemporalType.DATE)
+    @JsonIgnore
     private Calendar dateOfBirth;
     @Transient
     private String getDateOfBirth;
     @Column(unique = true)
     private String email;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private String phone;
