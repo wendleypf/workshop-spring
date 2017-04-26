@@ -22,7 +22,7 @@ public class RegisterController {
         this.coachService = coachService;
     }
 
-    @RequestMapping(value = "api/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/api/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<String> registerCoach(@Valid @RequestBody RegisterCoach registerCoach){
         Coach coach = new Coach(registerCoach.getName(),
                                 registerCoach.getDateOfBirth(),

@@ -2,23 +2,23 @@ package br.edu.ufcg.embedded.model.DTO;
 
 
 public class AuthDTO {
-    private String email;
+    private String username;
     private String password;
 
-    public AuthDTO(String email, String password) {
-        this.email = email;
+    public AuthDTO(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
     public AuthDTO() {
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
