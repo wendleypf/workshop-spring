@@ -1,0 +1,1 @@
+insert into tb_coach (address, cpf, date_of_birth, email, name, password, phone, user_type) values ('', '113.314.274-52', CURRENT_DATE, 'rerisson.matos@embedded.ufcg.edu.br', 'rerisson matos', '12345678', '996797956', 'COACH')
