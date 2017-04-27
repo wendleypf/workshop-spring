@@ -2,7 +2,6 @@ package br.edu.ufcg.embedded.controller;
 
 import br.edu.ufcg.embedded.model.Coach;
 import br.edu.ufcg.embedded.model.DTO.RegisterCoach;
-import br.edu.ufcg.embedded.model.User;
 import br.edu.ufcg.embedded.service.CoachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

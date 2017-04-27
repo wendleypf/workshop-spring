@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin
@@ -35,13 +35,23 @@ public class CoachController {
     }
 
     @RequestMapping(value = "/api/coach", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Coach>> getAllCoach(){
-        return new ResponseEntity<>(coachService.getAll(), HttpStatus.OK);
+    public ResponseEntity getAllCoach(@RequestHeader(value = "Authorization") String token) {
+        User user = tokenService.getUser(token);
+        if(user != null){
+            return new ResponseEntity<>(coachService.getAll(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new ArrayList<Coach>(), HttpStatus.UNAUTHORIZED);
     }
 
     @RequestMapping(value = "/api/coach/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Coach> getCoachById(@PathVariable("id") Long id){
-        return new ResponseEntity<>(coachService.getById(id), HttpStatus.OK);
+    public ResponseEntity<Coach> getCoachById(@RequestHeader(value = "Authorization") String token, @PathVariable("id") Long id){
+        User user = tokenService.getUser(token);
+        if(user != null){
+            return new ResponseEntity<>(coachService.getById(id), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new Coach(), HttpStatus.UNAUTHORIZED);
     }
 
     @RequestMapping(value = "/api/coach", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,35 +77,26 @@ public class CoachController {
     public ResponseEntity<String> registerStudent(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody final RegisterStudent registerStudent){
         User user = tokenService.getUser(token);
         if(user.getUserType().equals(UserType.COACH)){
+            Coach coach = coachService.getById(user.getId());
             Student student = new Student(registerStudent.getName(),
                     registerStudent.getDateOfBirth(),
                     registerStudent.getEmail(),
                     registerStudent.getPassword(),
                     registerStudent.getPhone(),
                     registerStudent.getCpf(),
-                    registerStudent.getAddress());
+                    registerStudent.getAddress(),coach);
 
             studentService.create(student);
-
-            Coach coach = coachService.getById(user.getId());
-            coach.setStudent(student);
-
-            coachService.update(coach);
             return new ResponseEntity<String>("Aluno criado com sucesso.", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Acesso não autorizado.", HttpStatus.UNAUTHORIZED);
     }
 
-    @RequestMapping(value = "/api/coach/student/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE
-    )
+    @RequestMapping(value = "/api/coach/student/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteStudent(@RequestHeader(value = "Authorization") String token, @PathVariable("id") Long id){
         User user = tokenService.getUser(token);
         if(user.getUserType().equals(UserType.COACH)){
-            Coach coach = coachService.getById(user.getId());
-            coach.removeStudent(studentService.getById(id));
-
             studentService.removeById(id);
-            coachService.update(coach);
             return new ResponseEntity<String>("Aluno deletado com sucesso.", HttpStatus.OK);
         }
         return new ResponseEntity<>("Acesso não autorizado.", HttpStatus.UNAUTHORIZED);

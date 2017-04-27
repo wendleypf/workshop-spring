@@ -7,7 +7,6 @@ import br.edu.ufcg.embedded.model.Student;
 import br.edu.ufcg.embedded.model.User;
 import br.edu.ufcg.embedded.service.CoachService;
 import br.edu.ufcg.embedded.service.StudentService;
-import io.swagger.annotations.ApiOperation;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

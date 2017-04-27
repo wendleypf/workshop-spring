@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -26,6 +28,16 @@ public class StudentController {
         this.tokenService = tokenService;
     }
 
+    @RequestMapping(value = "/api/student", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Student>> getAllStudent(@RequestHeader(value = "Authorization") String token){
+        User user = tokenService.getUser(token);
+        if(user != null){
+            return new ResponseEntity<>(studentService.getAll(),HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new ArrayList<Student>(), HttpStatus.UNAUTHORIZED);
+    }
+
     @RequestMapping(value = "/api/student/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Student> getStudentById(@RequestHeader(value = "Authorization") String token, @PathVariable("id") Long id){
         User user = tokenService.getUser(token);
@@ -35,6 +47,7 @@ public class StudentController {
         return new ResponseEntity<>(new Student(), HttpStatus.UNAUTHORIZED);
     }
 
+    @RequestMapping(value = "/api/student", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Student> editStudent(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody final RegisterStudent registerStudent){
         User user = tokenService.getUser(token);
         if(user.getUserType().equals(UserType.ALUNO)){
@@ -50,5 +63,5 @@ public class StudentController {
             return new ResponseEntity<>(studentService.update(student), HttpStatus.OK);
         }
         return new ResponseEntity<>(new Student(), HttpStatus.UNAUTHORIZED);
-        }
+    }
 }
