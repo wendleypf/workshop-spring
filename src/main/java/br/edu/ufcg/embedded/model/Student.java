@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Student extends User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Coach coach;
+
     public Student(String name, String dateOfBirth, String email, String password, String phone, String cpf, String address, Coach coach) {
         super(name, dateOfBirth, email, password, phone, cpf, address, UserType.ALUNO);
         this.coach = coach;
