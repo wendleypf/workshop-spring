@@ -7,6 +7,7 @@ import br.edu.ufcg.embedded.model.Student;
 import br.edu.ufcg.embedded.model.User;
 import br.edu.ufcg.embedded.service.CoachService;
 import br.edu.ufcg.embedded.service.StudentService;
+import io.swagger.annotations.ApiOperation;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
+    @ApiOperation(value = "")
     @RequestMapping(value = "/api/auth", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> authUser(final @Valid @RequestBody AuthDTO authDTO) {
         User user = getUser(authDTO.getUsername());

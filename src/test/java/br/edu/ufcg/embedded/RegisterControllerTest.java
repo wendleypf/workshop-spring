@@ -44,6 +44,6 @@ public class RegisterControllerTest {
                     .post("/api/register")
                 .then()
                     .assertThat()
-                    .statusCode(HttpStatus.SC_OK);
+                    .statusCode(HttpStatus.SC_CREATED);
     }
 }

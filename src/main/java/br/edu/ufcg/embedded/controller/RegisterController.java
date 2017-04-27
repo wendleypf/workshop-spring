@@ -3,6 +3,7 @@ package br.edu.ufcg.embedded.controller;
 import br.edu.ufcg.embedded.model.Coach;
 import br.edu.ufcg.embedded.model.DTO.RegisterCoach;
 import br.edu.ufcg.embedded.service.CoachService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ public class RegisterController {
         this.coachService = coachService;
     }
 
+    @ApiOperation(value = "")
     @RequestMapping(value = "/api/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<String> registerCoach(@Valid @RequestBody RegisterCoach registerCoach){
         Coach coach = new Coach(registerCoach.getName(),

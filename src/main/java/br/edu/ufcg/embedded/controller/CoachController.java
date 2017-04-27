@@ -9,6 +9,7 @@ import br.edu.ufcg.embedded.model.User;
 import br.edu.ufcg.embedded.model.enums.UserType;
 import br.edu.ufcg.embedded.service.CoachService;
 import br.edu.ufcg.embedded.service.StudentService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +35,7 @@ public class CoachController {
         this.tokenService = tokenService;
     }
 
+    @ApiOperation(value = "")
     @RequestMapping(value = "/api/coach", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllCoach(@RequestHeader(value = "Authorization") String token) {
         User user = tokenService.getUser(token);
@@ -44,6 +46,7 @@ public class CoachController {
         return new ResponseEntity<>(new ArrayList<Coach>(), HttpStatus.UNAUTHORIZED);
     }
 
+    @ApiOperation(value = "")
     @RequestMapping(value = "/api/coach/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Coach> getCoachById(@RequestHeader(value = "Authorization") String token, @PathVariable("id") Long id){
         User user = tokenService.getUser(token);
@@ -54,6 +57,7 @@ public class CoachController {
         return new ResponseEntity<>(new Coach(), HttpStatus.UNAUTHORIZED);
     }
 
+    @ApiOperation(value = "")
     @RequestMapping(value = "/api/coach", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Coach> editCoach(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody final RegisterCoach registerCoach){
         User user = tokenService.getUser(token);
@@ -73,6 +77,7 @@ public class CoachController {
         return new ResponseEntity<>(new Coach(), HttpStatus.UNAUTHORIZED);
     }
 
+    @ApiOperation(value = "")
     @RequestMapping(value = "/api/coach/student", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registerStudent(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody final RegisterStudent registerStudent){
         User user = tokenService.getUser(token);
@@ -92,12 +97,13 @@ public class CoachController {
         return new ResponseEntity<>("Acesso não autorizado.", HttpStatus.UNAUTHORIZED);
     }
 
+    @ApiOperation(value = "")
     @RequestMapping(value = "/api/coach/student/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteStudent(@RequestHeader(value = "Authorization") String token, @PathVariable("id") Long id){
         User user = tokenService.getUser(token);
-        if(user.getUserType().equals(UserType.COACH)){
+        if(user.getUserType().equals(UserType.COACH)) {
             studentService.removeById(id);
-            return new ResponseEntity<String>("Aluno deletado com sucesso.", HttpStatus.OK);
+            return new ResponseEntity<>("Aluno deletado com sucesso.", HttpStatus.OK);
         }
         return new ResponseEntity<>("Acesso não autorizado.", HttpStatus.UNAUTHORIZED);
     }
