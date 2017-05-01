@@ -98,7 +98,7 @@ public class CoachController {
     }
 
     @ApiOperation(value = "")
-    @RequestMapping(value = "/api/coach/student/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/coach/student/{id}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> deleteStudent(@RequestHeader(value = "Authorization") String token, @PathVariable("id") Long id){
         User user = tokenService.getUser(token);
         if(user.getUserType().equals(UserType.COACH)) {
