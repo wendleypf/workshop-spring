@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.jayway.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class AuthControllerTest {
     private int port;
     @Autowired
     private CoachService coachService;
+
+    @After
+    public void testDown(){
+        coachService.removeAll();
+    }
 
     @Test
     public void testAuth(){
@@ -47,10 +53,10 @@ public class AuthControllerTest {
 
     @Test
     public void testAuthSuccess(){
-        coachService.create(new Coach("Wendley Paulo", "26/09/1994", "wendleypf@gmail.com","123456789","123456789","102.841.744-67","24 de maio 806 tambor"));
+        coachService.create(new Coach("Wendley Paulo", "26/09/1994", "wendleypf@gmail.com.br","123456789","123456789","102.841.744-67","24 de maio 806 tambor"));
         Gson gson = new Gson();
         AuthDTO auth = new AuthDTO();
-        auth.setUsername("wendleypf@gmail.com");
+        auth.setUsername("wendleypf@gmail.com.br");
         auth.setPassword("123456789");
 
         given().contentType(ContentType.JSON)
