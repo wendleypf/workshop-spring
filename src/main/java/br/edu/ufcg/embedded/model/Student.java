@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name = "Student")
 @Table(name = "tb_student")
 public class Student extends User {
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Coach coach;
 
     public Student(String name, String dateOfBirth, String email, String password, String phone, String cpf, String address, Coach coach) {

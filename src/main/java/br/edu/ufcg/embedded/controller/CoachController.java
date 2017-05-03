@@ -78,7 +78,7 @@ public class CoachController {
     }
 
     @ApiOperation(value = "")
-    @RequestMapping(value = "/api/coach/student", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/coach/student", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> registerStudent(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody final RegisterStudent registerStudent){
         User user = tokenService.getUser(token);
         if(user.getUserType().equals(UserType.COACH)){

@@ -18,9 +18,9 @@ public abstract class User {
     @Column
     @Temporal(TemporalType.DATE)
     @JsonIgnore
-    private Calendar dateOfBirth;
+    private Calendar calDateOfBirth;
     @Transient
-    private String getDateOfBirth;
+    private String dateOfBirth;
     @Column(unique = true)
     private String email;
     @Column
@@ -38,7 +38,7 @@ public abstract class User {
 
     public User(String name, String dateOfBirth, String email, String password, String phone, String cpf, String address, UserType userType) {
         this.name = name;
-        setGetDateOfBirth(dateOfBirth);
+        setDateOfBirth(dateOfBirth);
         this.email = email;
         this.password = password;
         this.phone = phone;
@@ -67,30 +67,31 @@ public abstract class User {
         this.name = name;
     }
 
-    public Calendar getDateOfBirth() {
+    public Calendar getCalDateOfBirth() {
+        return calDateOfBirth;
+    }
+
+    public void setCalDateOfBirth(Calendar calDateOfBirth) {
+        this.calDateOfBirth = calDateOfBirth;
+    }
+
+    public String getDateOfBirth() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        this.dateOfBirth = formato.format(getCalDateOfBirth().getTime());
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Calendar dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getGetDateOfBirth() {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        this.getDateOfBirth = formato.format(getDateOfBirth().getTime());
-        return getDateOfBirth;
-    }
-
-    public void setGetDateOfBirth(String getDateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         Calendar date = Calendar.getInstance();
 
         try {
-            date.setTime(format.parse(getDateOfBirth));
+            date.setTime(format.parse(dateOfBirth));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.getDateOfBirth = getDateOfBirth;
+        this.calDateOfBirth = date;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {
